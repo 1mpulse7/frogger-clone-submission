@@ -1,8 +1,7 @@
-// Enemies our player must avoid
-var Enemy = function() {
+/* // Enemies our player must avoid
+let Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -20,14 +19,57 @@ Enemy.prototype.update = function(dt) {
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+*/
+
+
+// Place all enemy objects in an array called allEnemies
+/*let allEnemies = [];
+
+class Enemy {
+  constructor() {
+    this.x = 200;
+    this.y = 200;
+    this.sprite = 'images/enemy-bug.png';
+  }
+
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+}
+
+let bug = new Enemy();
+
+bug.prototype.update = function() {
+  //come back to this
+}
+*/
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 
+/*As suggested by Mathew Cranford in his article, I wrote the hero constructor
+class using the information provided above */
 
+class Hero {
+  constructor() {
+    this.x = 200;
+    this.y = 400;
+    this.sprite = 'images/char-boy.png'
+  }
+
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  }
+}
+
+const player = new Hero();
+
+player.update = function() {
+  // copied from enemey contructor above
+}
 // Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
+
 // Place the player object in a variable called player
 
 
