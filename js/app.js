@@ -1,35 +1,11 @@
-/* // Enemies our player must avoid
-let Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-};
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-};
-
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-*/
-
-
 // Place all enemy objects in an array called allEnemies
-/*let allEnemies = [];
+let allEnemies = [];
 
 class Enemy {
-  constructor() {
-    this.x = 200;
-    this.y = 200;
+  constructor(posY, posX) {
+    this.x = posX;
     this.sprite = 'images/enemy-bug.png';
+    this.y = posY;
   }
 
   render() {
@@ -37,20 +13,20 @@ class Enemy {
   }
 }
 
-let bug = new Enemy();
-
-bug.prototype.update = function() {
-  //come back to this
+Enemy.prototype.update = function(dt) {
+  if (this.x < 505) {
+    this.x += (dt * 150);
+  } else if (this.x > 505) {
+    this.x = -100;
+  }
 }
-*/
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
-/*As suggested by Mathew Cranford in his article, I wrote the hero constructor
+/* Now write your own player class
+This class requires an update(), render() and
+a handleInput() method.
+As suggested by Mathew Cranford in his article, I wrote a hero constructor
 class using the information provided above */
-
 class Hero {
   constructor() {
     this.x = 200;
@@ -61,16 +37,54 @@ class Hero {
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
+
+  handleInput(key) {
+    if (key == 38) {
+      this.y += 100;
+      console.log('left');
+    } else if (key == 37) {
+      this.x -= 100;
+      console.log('up');
+    } else if (key == 39) {
+      this.x += 100;
+      console.log('right');
+    } else if (key == 40) {
+      this.y -= 100;
+      console.log('down');
+    }
+  }
 }
 
+Hero.prototype.update = function() {
+  
+}
+
+
+
+
+// Now instantiate your objects.
+// Place the player object in a variable called player
 const player = new Hero();
 
-player.update = function() {
-  // copied from enemey contructor above
-}
-// Now instantiate your objects.
+// enemy objects instantiated and pushed to allEnemies array, come back and fine tune
 
-// Place the player object in a variable called player
+/* stone bug variable names are set up to have the first number referencing
+which row of stone its on, ie stoneBugOneOne is in the first row, and is the
+first bug declared for that row */
+
+const stoneBugOneOne = new Enemy(225, 250);
+
+const stoneBugTwoOne = new Enemy(140, 50)
+
+allEnemies.push(stoneBugOneOne);
+allEnemies.push(stoneBugTwoOne);
+
+//because there is only one grass row, its implied all grass bugs are on the
+//same row.
+
+const grassBugOne = new Enemy(300, 0);
+
+allEnemies.push(grassBugOne);
 
 
 
