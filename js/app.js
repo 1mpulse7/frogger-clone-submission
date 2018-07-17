@@ -122,7 +122,7 @@ document.addEventListener('keyup', function(e) {
 function checkCollisions() {
   allEnemies.forEach(function(enemy) {
     if (player.y == enemy.y && player.x <= enemy.x + 30 && player.x >= enemy.x - 30) {
-      player.x = 200;
+      player.x = -2;
       player.y = 400;
       score -= 300;
     }
@@ -136,7 +136,7 @@ function checkCollisions() {
 function starCheck() {
   if (player.x == star.x && player.y == star.y) {
     score += 150;
-    player.x = 200;
+    player.x = -2;
     player.y = 400;
   } else if (player.x != star.x && player.y == star.y) {
     playerReset();
@@ -146,7 +146,7 @@ function starCheck() {
 // timeout function for smoother animation
 function playerReset() {
   setTimeout(function() {
-    player.x = 200;
+    player.x = -2;
     player.y = 400;
   }, 500);
 }
