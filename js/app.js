@@ -82,6 +82,17 @@ class StarCreator {
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
+//function to repostion star upon capture, and add points to the board
+//also checks to see if player is on the water
+  starCheck() {
+    if (player.x == star.x && player.y == star.y) {
+      score += 150;
+      player.x = -2;
+      player.y = 400;
+    } else if (player.x != star.x && player.y == star.y) {
+      player.playerReset();
+    }
+  }
 }
 
 
@@ -134,20 +145,6 @@ function checkCollisions() {
       score -= 300;
     }
   });
-}
-
-
-//function to repostion star upon capture, and add points to the board
-//also checks to see if player is on the water
-
-function starCheck() {
-  if (player.x == star.x && player.y == star.y) {
-    score += 150;
-    player.x = -2;
-    player.y = 400;
-  } else if (player.x != star.x && player.y == star.y) {
-    playerReset();
-  }
 }
 
 //score function, updates scores and lives
