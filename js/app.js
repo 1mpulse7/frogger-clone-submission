@@ -3,6 +3,9 @@ let allEnemies = [];
 
 let lives = 3;
 
+const colX = 101;
+const colY = 83;
+
 class Enemy {
   constructor(posY, posX) {
     this.x = posX;
@@ -18,7 +21,7 @@ class Enemy {
 
 Enemy.prototype.update = function(dt) {
   if (this.x < 505) {
-    this.x += (dt * 150);
+    this.x += (dt * 250);
   } else if (this.x > 505) {
     this.x = -100;
   }
@@ -43,24 +46,25 @@ class Hero {
 
   handleInput(event) {
     if (event == 'left' && this.x > 0) {
-      this.x -= 101;
+      this.x -= colX;
+      console.log(player.x)
     } else if (event == 'up' && this.y > 0) {
-      this.y -= 83;
+      this.y -= colY;
+      console.log(player.y)
     } else if (event == 'right' && this.x < 400) {
-      this.x += 101;
+      this.x += colX;
+      console.log(player.x)
     } else if (event == 'down' && this.y < 400) {
-      this.y += 83;
+      this.y += colY;
+      console.log(player.y)
     }
   };
 }
 
 // this allows the game to update the player's position
 
-Hero.prototype.update = function() {
-  if (this.y < 10 ) {
-    //idfk
-  }
-}
+Hero.prototype.update = function() {}
+
 
 
 
@@ -75,18 +79,18 @@ const player = new Hero();
 which row of stone its on, ie stoneBugOneOne is in the first row, and is the
 first bug declared for that row */
 
-const stoneBugOneOne = new Enemy(225, 250);
+const stoneBugOneOne = new Enemy(234, 250);
 
-const stoneBugTwoOne = new Enemy(140, 50)
+const stoneBugTwoOne = new Enemy(151, 50)
 
-const stoneBugThreeOne = new Enemy(60, -190);
+const stoneBugThreeOne = new Enemy(68, -190);
 
-const stoneBugOneTwo = new Enemy(225, -100)
+const stoneBugOneTwo = new Enemy(234, -100)
 
 //because there is only one grass row, its implied all grass bugs are on the
 //same row.
 
-const grassBugOne = new Enemy(300, 25);
+const grassBugOne = new Enemy(317, 25);
 
 
 
@@ -103,7 +107,16 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-// collision checker
-/*if (player == enemy) {
-  game restarts
-}*/
+
+// figured out most of the collision on my own, including forEach loop.
+//sought help with if statement parameters from slack handle @Roderick's tutorial
+
+function checkCollisions() {
+  allEnemies.forEach(function(enemy) {
+    if (player.y == enemy.y && player.x <= enemy.x + 5.0 && player.x >= enemy.x - 5.0) {
+      lives -= 1;
+      player.x = 200;
+      player.y = 400;
+    }
+  });
+}
