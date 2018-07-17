@@ -10,11 +10,11 @@ class Enemy {
     this.sprite = 'images/enemy-bug.png';
     this.y = posY;
     allEnemies.push(this);
-  };
+  }
 
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  };
+  }
 }
 
 Enemy.prototype.update = function(dt) {
@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
   } else if (this.x > 505) {
     this.x = -100;
   }
-}
+};
 
 
 /* Now write your own player class
@@ -36,11 +36,11 @@ class Hero {
     this.x = -2;
     this.y = 400;
     this.sprite = 'images/char-boy.png';
-  };
+  }
 
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  };
+  }
 
   handleInput(event) {
     if (event == 'left' && this.x > 0) {
@@ -52,7 +52,7 @@ class Hero {
     } else if (event == 'down' && this.y < 400) {
       this.y += 83;
     }
-  };
+  }
 }
 
 // this allows the game to update the player's position
@@ -66,12 +66,12 @@ class StarCreator {
   constructor() {
     this.y = -15;
     this.x = 402;
-    this.sprite = 'images/Star.png'
-  };
+    this.sprite = 'images/Star.png';
+  }
 
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  };
+  }
 }
 
 StarCreator.prototype.update = function() {};
@@ -90,11 +90,11 @@ first bug declared for that row */
 
 const stoneBugOneOne = new Enemy(234, 250);
 
-const stoneBugTwoOne = new Enemy(151, 50)
+const stoneBugTwoOne = new Enemy(151, 50);
 
 const stoneBugThreeOne = new Enemy(68, -190);
 
-const stoneBugOneTwo = new Enemy(234, -100)
+const stoneBugOneTwo = new Enemy(234, -100);
 
 //because there is only one grass row, its implied all grass bugs are on the
 //same row.
@@ -147,7 +147,7 @@ function playerReset() {
   setTimeout(function() {
     player.x = 200;
     player.y = 400;
-  }, 500)
+  }, 500);
 }
 
 //score function, updates scores and lives
