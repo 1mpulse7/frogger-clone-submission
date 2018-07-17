@@ -1,29 +1,32 @@
+'use strict';
 // Place all enemy objects in an array called allEnemies
-let allEnemies = [];
+const allEnemies = [];
 
 let score = 0;
 const scoreDisplay = document.querySelector('.score');
 
 class Enemy {
-  constructor(posY, posX) {
+  constructor(posY, posX, sp) {
     this.x = posX;
     this.sprite = 'images/enemy-bug.png';
     this.y = posY;
     allEnemies.push(this);
+    this.speed = sp;
   }
 
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
+
+  update(dt) {
+    if (this.x < 505) {
+      this.x += (dt * this.speed);
+    } else if (this.x >= 505) {
+      this.x = -100;
+    }
+  }
 }
 
-Enemy.prototype.update = function(dt) {
-  if (this.x < 505) {
-    this.x += (dt * 250);
-  } else if (this.x > 505) {
-    this.x = -100;
-  }
-};
 
 
 /* Now write your own player class
@@ -54,11 +57,17 @@ class Hero {
       this.y += 83;
     }
   }
-}
 
-// this allows the game to update the player's position
+  playerReset() {
+    setTimeout(function() {
+      player.x = -2;
+      player.y = 400;
+    }, 500);
+  }
+};
 
-Hero.prototype.update = function() {};
+
+
 
 
 //class for points using star images
@@ -75,8 +84,6 @@ class StarCreator {
   }
 }
 
-StarCreator.prototype.update = function() {};
-
 
 // Now instantiate your objects.
 // Place the player object in a variable called player
@@ -89,18 +96,18 @@ const star = new StarCreator();
 which row of stone its on, ie stoneBugOneOne is in the first row, and is the
 first bug declared for that row */
 
-const stoneBugOneOne = new Enemy(234, 250);
+const stoneBugOneOne = new Enemy(234, 250, 300);
 
-const stoneBugTwoOne = new Enemy(151, 50);
+const stoneBugTwoOne = new Enemy(151, 50, 250);
 
-const stoneBugThreeOne = new Enemy(68, -190);
+const stoneBugThreeOne = new Enemy(68, -190, 250);
 
-const stoneBugOneTwo = new Enemy(234, -100);
+const stoneBugOneTwo = new Enemy(234, -100, 300);
 
 //because there is only one grass row, its implied all grass bugs are on the
 //same row.
 
-const grassBugOne = new Enemy(317, 25);
+const grassBugOne = new Enemy(317, 25, 225);
 
 
 
@@ -141,14 +148,6 @@ function starCheck() {
   } else if (player.x != star.x && player.y == star.y) {
     playerReset();
   }
-}
-
-// timeout function for smoother animation
-function playerReset() {
-  setTimeout(function() {
-    player.x = -2;
-    player.y = 400;
-  }, 500);
 }
 
 //score function, updates scores and lives
