@@ -80,6 +80,7 @@ var Engine = (function(global) {
     function update(dt) {
       updateEntities(dt);
       checkCollisions();
+      starCheck();
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,6 +95,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        star.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -154,7 +156,9 @@ function renderEntities() {
     });
 
       player.render();
+      star.render();
     }
+
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen
@@ -172,7 +176,8 @@ function renderEntities() {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 

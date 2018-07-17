@@ -3,6 +3,8 @@ let allEnemies = [];
 
 let lives = 3;
 
+let score = 0;
+
 const colX = 101;
 const colY = 83;
 
@@ -37,7 +39,7 @@ class Hero {
   constructor() {
     this.x = 200;
     this.y = 400;
-    this.sprite = 'images/char-boy.png'
+    this.sprite = 'images/char-boy.png';
   };
 
   render() {
@@ -63,17 +65,32 @@ class Hero {
 
 // this allows the game to update the player's position
 
-Hero.prototype.update = function() {}
+Hero.prototype.update = function() {};
 
 
+//class for points using star images
 
+class StarCreator {
+  constructor() {
+    this.y = -15;
+    this.x = 200;
+    this.sprite = 'images/Star.png'
+  };
 
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  };
+}
+
+StarCreator.prototype.update = function() {};
 
 
 // Now instantiate your objects.
 // Place the player object in a variable called player
 
 const player = new Hero();
+
+const star = new StarCreator();
 
 /* stone bug variable names are set up to have the first number referencing
 which row of stone its on, ie stoneBugOneOne is in the first row, and is the
@@ -119,4 +136,15 @@ function checkCollisions() {
       player.y = 400;
     }
   });
+}
+
+
+//function to repostion star upon capture, and add points to the board
+
+function starCheck() {
+  if(player.x == star.x && player.y == star.y) {
+    score += 100;
+    player.x = 200;
+    player.y = 400;
+  }
 }
