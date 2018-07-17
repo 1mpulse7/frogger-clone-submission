@@ -41,7 +41,8 @@ class Hero {
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
-
+//was initially trying to test the key code instead of the string
+//with the help of a Mathew Cranford tutorial
   handleInput(event) {
     if (event == 'left' && this.x > 0) {
       this.x -= 101;
