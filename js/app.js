@@ -1,12 +1,8 @@
 // Place all enemy objects in an array called allEnemies
 let allEnemies = [];
 
-let lives = 3;
-
 let score = 0;
-
-const colX = 101;
-const colY = 83;
+const scoreDisplay = document.querySelector('.score');
 
 class Enemy {
   constructor(posY, posX) {
@@ -14,11 +10,11 @@ class Enemy {
     this.sprite = 'images/enemy-bug.png';
     this.y = posY;
     allEnemies.push(this);
-  }
+  };
 
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  }
+  };
 }
 
 Enemy.prototype.update = function(dt) {
@@ -37,7 +33,7 @@ As suggested by Mathew Cranford in his third article, I wrote a hero constructor
 class using the information provided above */
 class Hero {
   constructor() {
-    this.x = 200;
+    this.x = -2;
     this.y = 400;
     this.sprite = 'images/char-boy.png';
   };
@@ -48,17 +44,13 @@ class Hero {
 
   handleInput(event) {
     if (event == 'left' && this.x > 0) {
-      this.x -= colX;
-      console.log(player.x)
+      this.x -= 101;
     } else if (event == 'up' && this.y > 0) {
-      this.y -= colY;
-      console.log(player.y)
+      this.y -= 83;
     } else if (event == 'right' && this.x < 400) {
-      this.x += colX;
-      console.log(player.x)
+      this.x += 101;
     } else if (event == 'down' && this.y < 400) {
-      this.y += colY;
-      console.log(player.y)
+      this.y += 83;
     }
   };
 }
@@ -73,7 +65,7 @@ Hero.prototype.update = function() {};
 class StarCreator {
   constructor() {
     this.y = -15;
-    this.x = 200;
+    this.x = 402;
     this.sprite = 'images/Star.png'
   };
 
@@ -124,16 +116,14 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-
-// figured out most of the collision on my own, including forEach loop.
 //sought help with if statement parameters from slack handle @Roderick's tutorial
 
 function checkCollisions() {
   allEnemies.forEach(function(enemy) {
-    if (player.y == enemy.y && player.x <= enemy.x + 5.0 && player.x >= enemy.x - 5.0) {
-      lives -= 1;
+    if (player.y == enemy.y && player.x <= enemy.x + 30 && player.x >= enemy.x - 30) {
       player.x = 200;
       player.y = 400;
+      score -= 300;
     }
   });
 }
@@ -144,10 +134,10 @@ function checkCollisions() {
 
 function starCheck() {
   if (player.x == star.x && player.y == star.y) {
-    score += 100;
-    playerReset();
+    score += 150;
+    player.x = 200;
+    player.y = 400;
   } else if (player.x != star.x && player.y == star.y) {
-    score -= 50;
     playerReset();
   }
 }
@@ -158,4 +148,9 @@ function playerReset() {
     player.x = 200;
     player.y = 400;
   }, 500)
+}
+
+//score function, updates scores and lives
+function scoreUpdate() {
+  scoreDisplay.innerText = ("Score: " + score);
 }
