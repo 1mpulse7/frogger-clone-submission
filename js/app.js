@@ -140,11 +140,22 @@ function checkCollisions() {
 
 
 //function to repostion star upon capture, and add points to the board
+//also checks to see if player is on the water
 
 function starCheck() {
-  if(player.x == star.x && player.y == star.y) {
+  if (player.x == star.x && player.y == star.y) {
     score += 100;
+    playerReset();
+  } else if (player.x != star.x && player.y == star.y) {
+    score -= 50;
+    playerReset();
+  }
+}
+
+// timeout function for smoother animation
+function playerReset() {
+  setTimeout(function() {
     player.x = 200;
     player.y = 400;
-  }
+  }, 500)
 }
